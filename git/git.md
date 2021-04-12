@@ -206,17 +206,92 @@
 - `git remote`查看远程库信息
 - `git remote -v`查看更详细信息
 
+- `git push origin branch-name`如果推送失败，先用`git pull`抓取远程新提交
+- 在本地创建和远程对应的分支关联，使用`git checkout -b branch-name origin/branch-name`
+- 使用`git branch --set-upstream branch-name origin/branch-name`建立和远程分支的关联
 
+#### Rebase
 
+- `git rebase`可以把本地未push的分叉提交历史整理为直线
 
+### 标签管理
 
+> tag 是一个容易让人记住的有意义的名字，跟某个commit绑在一起
 
+#### 创建标签
 
+- 首先切换到需要打标签的分支`git checkout branch-name`
+- `git tag v1.0`
+- `git tag`查看所有标签
+- `git tag v0.9 commitId`
+- `git show <tagname>`查看标签信息
+- `git tag -a v1.0 -m "..." commitId`其中，`-a`指定签名，`-m`指定说明文字
 
+#### 操作标签
 
+- 删除标签`git tag -d v0.1`
+- `git push origin v1.0`推送某个标签到远程
+- 一次性推送全部尚未推送到远程的本地标签`git push origin --tags`
+- 从远程删除标签`git tag -d v0.9`先从本地删除，然后`git push origin :refs/tags/<tagname>`
 
+### Gitee
 
+> 国内Git托管服务[Gitee](gitee.com)
 
+暂略
+
+### 自定义Git
+
+- 让Git显示颜色
+
+  > `git config --global color.ui true`
+
+#### 忽略特殊文件
+
+略
+
+#### 配置别名
+
+略
+
+#### 搭建Git服务器
+
+- 准备一台运行Linux的机器
+
+- 安装`git`
+
+  > `sudo apt-get install git`
+  >
+  > CentOS用yum安装
+
+- 创建一个git用户，用来运行`git`服务
+
+  > `sudo adduser git`
+
+- 创建登录证书
+
+  > 搜集需要登录的用户的公钥，即`id_rsa.pub`，把所有公钥导入到`/home/git/.ssh/authorized_keys`文件中，一行一个
+
+- 初始化Git仓库
+
+  > - 先选定一个目录作为Git仓库，在该目录下输入命令`sudo git init --bare sample.git`。服务器上的Git仓库通常是以`.git`结尾
+  > - 把owner改为`git`：`sudo chown -R git:git sample.git`
+
+- 禁用Shell登录
+
+  > 通过编辑`/etc/passwd`完成，找到
+  >
+  > `git:x:1001:1001:,,,:/home/git:/bin/bash`改为
+  >
+  > `git:x:1001:1001:,,,:/home/git:/usr/bin/git-shell`
+
+- 克隆远程仓库
+
+  `git clone git@server:/svr/sample.git`
+
+- 管理公钥
+
+  > 把每人的公钥搜集起来放到服务器的``/home/git/.ssh/authorized_keys``
 
 
 
