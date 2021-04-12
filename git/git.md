@@ -118,7 +118,103 @@
   >
   > 其中远程仓库的名字为origin，可以改名为别的
 
-- 
+- 把本地库推送到远程库上
+
+  > `git push -u origin master`
+  >
+  > -u可不加
+
+- 删除远程库
+
+  > `git remote -v`
+  >
+  > 查看远程库信息
+
+#### 从远程库克隆
+
+- > `git clone git@github.com:ycres/repositoriesname.git`
+
+### 分支管理
+
+#### 创建与合并分支
+
+- 创建分支
+
+  > `git checkout -b dev`
+  >
+  > `-b`参数表示创建并切换，相当于
+  >
+  > `git branch dev`
+  >
+  > `git checkout dev`
+
+- `git branch`查看当前分支，当前分支前面会标*
+
+- `git merge dev`
+
+  > 把`dev`的分支成果合并到`master`上
+
+- `git branch -d dev`
+
+  > 可以删除dev分支
+
+- 切换分支`git checkout <name>`，`git switch <name>`
+
+#### 解决冲突
+
+- `git switch -c feature`
+- git用`<<<<<`，`=======`，`>>>>>>>`标记出不同分支的内容
+- `git log --graph --pretty=oneline --abbrev-commit`可以看到分支的情况
+
+#### 分支管理策略
+
+- `git merge --no-ff -m "merge with no-ff" dev`
+
+- > 合并分支时，`--no-ff`参数可以用普通模式合并，合并后的历史有分支，`fast forward`合并看不出曾经做过合并
+
+#### Bug分支
+
+- `git stash`
+
+  > 储存工作现场
+
+- `git checkout master`
+
+- `git stash list`
+
+  > 查看工作现场
+
+- `git stash apply`，`git stash drop`
+
+  > 回复工作现场，并删除stash中的内容
+
+- `git stash pop`
+
+  > 之前上述两种操作
+
+- `git stash apply stash@{0}`指定恢复`stash`
+
+- `git cherry-pick <commit>`复制一个特定的提交到当前分支
+
+#### Feature分支
+
+- 删除分支`git branch -d feature-vulcan`如果未合并会销毁失败
+- `git branch -D feature-vulcan`强行删除需要加`-D`参数
+
+#### 多人协作
+
+- `git remote`查看远程库信息
+- `git remote -v`查看更详细信息
+
+
+
+
+
+
+
+
+
+
 
 
 
